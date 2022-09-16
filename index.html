@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v4.1.1">
+    <title>Pante Kalkulatoren</title>
+
+
+    <!-- Bootstrap core CSS -->
+<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="product.css" rel="stylesheet">
+  </head>
+  <body>
+    <p class="comment phone text_center">Fyll ut alle feltene</p>
+    <p class="comment pc text_center">Fyll ut alle feltene</p>
+
+  <div class="position-relative overflow-hidden p-3 mt-5 text-center">
+    <div class="col-md-7 p-lg-5 mx-auto ">
+      <h1 class="display-4 font-weight-normal">Pante Kalkulatoren!</h1>
+      <div class="container p-lg-5">
+        <div class="row">
+          <div class="col-sm">
+            <label for="3 kr pant">3 kr pant</label>
+            <div class="input-group input_box">
+              <input type="text" class="form-control" name="tre_kr_flasker_antall" id="tre_kr_flasker_antall" aria-label="3 kr panteflasker"  placeholder="0">
+              <span class="input-group-text">flasker</span>
+            </div>
+          </div>
+          <div class="col-sm">
+            <label for="2 kr pant">2 kr pant</label>
+            <div class="input-group input_box">
+              <input type="text" class="form-control" name="to_kr_flasker_antall" id="to_kr_flasker_antall" aria-label="2 kr panteflasker"  placeholder="0">
+              <span class="input-group-text">flasker</span>
+            </div>
+          </div>
+          <div class="col-sm">
+            <label for="totalt flasker">Totalt flasker</label>
+            <div class="input-group input_box">
+              <input type="text" class="form-control" name="totalt_flasker_antall" id="totalt_flasker_antall" readonly aria-label="Dollar amount (with dot and two decimal places)">
+              <span class="input-group-text">flasker</span>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <button id="finn_ut_mer" class="btn knapp_stil" href="#">Finn ut mer</button>
+    </div>
+  </div>
+  <img id="få_resultatet_ditt" src="images/banner.png" class="main_banner">
+
+  <div id="informasjons_boks" class="d-md-flex flex-md-equal w-100 pl-md-3">
+    <div class="bg-secondary-color mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+      <div class="my-3 py-3">
+        <h2 class="display-5">Fortjeneste</h2>
+        <p>Med <b><span class="tre_kr_antall"></span> tre-kroners flasker</b> og <b><span class="to_kr_antall"></span> to-kroners flasker</b> kunne 
+          du sittet igjen med <b>kr <span class="fortjeneste_kr"></span>,-</b> som egentlig er dine penger!</p>
+      </div>
+
+      <button id="prøv_igjen" class="btn knapp_stil" href="#">Prøv igjen</button>
+    </div>
+    <div class="bg-secondary-color mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+      <div class="my-3 p-3">
+        <h2 class="display-5">Visste du at...</h2>
+        <ul>
+          <li>Verdens befolkning forbruker 500 milliarder plastflasker i året, eller 20.000 flasker i sekundet.</li>
+          <li>Årlig kastes gjennomsnittlig 30 panteflasker per nordmann.</li>
+          <li>Verdens hav fylles opp med plast, fortsetter dette vil det være mer plast enn fisk i havet i 2050.</li>
+          <li>Flasker som har synket til havbunnen kan de bli liggende i 200 år (aluminiumsboks), eller 450 år (plastflaske).</li>
+          <li>Det norske pantesystemet kalles det beste og mest effektive i verdenen, siden vi kan pante bokser og flasker der vi kjøper dem, i butikken eller på kiosken.</li>
+        </ul>
+      </div>
+    </div>
+    
+  </div>
+  
+
+  <footer class="container py-5">
+    <div class="row">
+      <div class="col-12 col-md">
+        <a href="https://diestus.com" target="_blank"><small class="d-block mb-3 text-muted">&copy; 2021 Diestus</small></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.slim.min.js"><\/script>')</script><script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    $( document ).ready(function() {
+        $('#tre_kr_flasker_antall').focus();
+        $('input[name="tre_kr_flasker_antall"]').keyup(function(){
+            runCalculator();
+        });
+        $('input[name="to_kr_flasker_antall"]').keyup(function(){
+            runCalculator();
+        });
+
+        function runCalculator() {
+            var tre_kr_flasker_antall = parseInt($('input[name="tre_kr_flasker_antall"]').val());
+            var to_kr_flasker_antall = parseInt($('input[name="to_kr_flasker_antall"]').val());
+            var totalt_flasker_antall = (tre_kr_flasker_antall + to_kr_flasker_antall);
+            var fortjeneste_flasker_antall = ((tre_kr_flasker_antall * 3) + (to_kr_flasker_antall*2));
+            var kommentar;
+            $(".boks_pr_dag").text((kommentar));
+
+            if( tre_kr_flasker_antall && to_kr_flasker_antall) {
+              $("#totalt_flasker_antall").val(totalt_flasker_antall);
+              $("#fortjeneste_flasker_antall").val("kr " + fortjeneste_flasker_antall + ",-");
+              $(".tre_kr_antall").text(tre_kr_flasker_antall);
+              $(".to_kr_antall").text(to_kr_flasker_antall);
+              $(".fortjeneste_kr").text(fortjeneste_flasker_antall);
+            }
+            var antall = totalt_flasker_antall;
+            if (antall == 1){
+              kommentar = "Du har spart nok energi til å fullade mobilen din 70 ganger";
+            } else if (antall == 2){
+              kommentar = "Du har spart nok energi til å høre på musikk fra mobilen i 40 døgn i strekk";
+            } else if (antall == 3){
+              kommentar = "Tilsvarer energiforbruket til en elektrisk drill i seks timer";
+            } else if (antall == 5){
+              kommentar = "Nok energi til å bruke en høytrykksspyler i nesten 3 timer";
+            } else if (antall == 7){
+              kommentar = "Nok energi til å holde en motorsag i gang over 3 timer.";
+            } else if (antall == 30){
+              kommentar = "Årlig kastes gjennomsnittlig 30 panteflasker per nordmann. Hadde vi pantet dem, kunne hver nordmann brukt en gressklipper i 10 timer.";
+            } else if (antall == 285){
+              kommentar = "Nok til å kjøre en oppvaskmaskin 170 ganger.";
+            } else if (antall == 17113){
+              kommentar = "Nok energi til å holde en påhengsmotor i gang i godt over 185 dager.";
+            } else if (antall == 410000){
+              kommentar = "Nok energi til å kjøre en moped neste 120 000 mil, eller rundt jorden hele 30 ganger";
+            } else if (antall == 2884500){
+              kommentar = "Nok energi til å kjøre en gjennomsnittlig familiebil hele 250 000 mil. For samme energimengde kan du kjøre en el-bil over fire ganger så langt: 1.000.000 mil";
+            } else if (antall == 12500000){
+              kommentar = "Nok energi til å kjøre en lastebil 5.6 millioner kilometer. Det er 140 ganger rundt jorda.";
+            } else if (antall == 15000000){
+              kommentar = "Nok energi til å holde 5600 husstander med strøm i et helt år.";
+            }  
+
+
+
+
+
+            var antall = parseInt($('input[name="antall_snus"]').val());
+            var pris = parseInt($('input[name="pris_pr_snus"]').val());
+            var år = parseInt($('input[name="antall_år"]').val());
+            if( antall && pris && år) {
+                $('html, body').animate({
+                  scrollTop: $("#få_resultatet_ditt").offset().top
+                }, 1500);
+                var totalt_pr_uke = (antall * pris);
+                var totalt_pr_måned = (((antall * pris)/7)*30);
+                var totalt_pr_år = (((antall * pris)/7)*365);
+                var totalt_alle_år = (((antall * pris)/7)*(år*365));
+                var boks_pr_dag = (antall / 7);
+                var bokser_i_mnd = ((antall/7)*30);
+                var bokser_i_år = ((antall/7)*365);
+                var bokser_alle_år = (((antall/7)*365))*år;
+                $("#sum_boks").show();
+                $("#heller_hatt_boks").show();
+                $(".få_resultatet_ditt").show();
+                if( år == 1){
+                    $(".alle_år_linje").hide();
+                    $(".bokser_alle_år_linje").hide();
+                    $(".sum_pr_uke").text((totalt_pr_uke).toFixed(0));
+                    $(".sum_pr_måned").text((totalt_pr_måned).toFixed(0));
+                    $(".sum_pr_år").text((totalt_pr_år).toFixed(0));
+                    if (boks_pr_dag == 1){
+                      $(".boks_pr_dag").text((boks_pr_dag).toFixed(0));
+                    } else {
+                      $(".boks_pr_dag").text((boks_pr_dag).toFixed(2));
+                    }
+                    $(".bokser_pr_mnd").text((bokser_i_mnd).toFixed(0));
+                    $(".bokser_pr_år").text((bokser_i_år).toFixed(0));
+                } else{
+                    $(".alle_år_linje").show();
+                    $(".bokser_alle_år_linje").show();
+                    $(".sum_pr_uke").text((totalt_pr_uke).toFixed(0));
+                    $(".sum_pr_måned").text((totalt_pr_måned).toFixed(0));
+                    $(".sum_pr_år").text((totalt_pr_år).toFixed(0));
+                    $(".sum_alle_år").text((totalt_alle_år).toFixed(0));
+                    $(".antall_år_text").text(år);
+                    if (boks_pr_dag == 1){
+                      $(".boks_pr_dag").text((boks_pr_dag).toFixed(0));
+                    } else {
+                      $(".boks_pr_dag").text((boks_pr_dag).toFixed(2));
+                    }
+                    $(".bokser_pr_mnd").text((bokser_i_mnd).toFixed(0));
+                    $(".bokser_pr_år").text((bokser_i_år).toFixed(0));
+                    $(".bokser_alle_år").text((bokser_alle_år).toFixed(0));
+                    $(".år").text(år);
+
+                }
+                if(totalt_pr_år > 15648){
+                  $("#heller_hatt").text("reist på en fantastisk ferie til Barcelona");
+                } else if(totalt_pr_år > 100){
+                   $("#heller_hatt").text("hatt en hest");
+                } else if(totalt_pr_år > 20000){
+                   $("#heller_hatt").text("hatt en fantastisk hest");
+                } else {
+                    
+                }
+            } else {
+                $("#heller_hatt_boks").hide();
+                $("#sum_boks").hide();
+            }
+        }
+
+        $('#finn_ut_mer').click(function(){
+            $('html, body').animate({
+              scrollTop: $("#informasjons_boks").offset().top
+            }, 1000);
+        });
+        $('#prøv_igjen').click(function(){
+            $('html, body').animate({
+              scrollTop: $("html, body").offset().top
+            }, 1000);
+            $('#antall_snus').val('');
+            $(".få_resultatet_ditt").fadeOut(1500);
+            $('#antall_snus').focus()
+        });
+    });
+</script>
+
+
+</body>
+</html>
